@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}<!DOCTYPE html>
+{% block content %}
+    <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Wanted Boards</li>
+      </ol>
+      <table class="table">
+        <thead class="thead bg-steel">
+          <tr class='text-muted'>
+            <th class='font-on-orange' style='width: 50%;'>Wanted</th>
+            <th class='font-on-orange' style='width: 25%;'>Need at</th>
+            <th class='font-on-orange'>Post time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td>
+                <a href="" > {{ item.item_name }} </a>
+              </td>
+              <td> {{ item.need_at }} </td>
+              <td> {{ item.post_at }}
+                  <small class="text-info"> by {{ item.post_by }} </small>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock content %}
