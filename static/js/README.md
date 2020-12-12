@@ -1,1 +1,1 @@
-Download js from :https://codeload.github.com/xdan/datetimepicker/zip/master
+Download js from :https://github.com/xdan/datetimepicker
