@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  {% include 'base_detail.html' %}
+{% endblock content %}
+
+{% block update_con %}
+{% if object.post_by == user %}
+  <div class="content-section">
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <fieldset class="form-group" style="font-size: 1rem; fiel">
+              <legend class="border-bottom mb-4">Edit Post</legend>
+                {{ form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Edit</button>
+          </div>
+      </form>
+  </div>
+{% else %}
+  <h2>You are not allow to edit this block!!</h2>
+  <div class="border-top pt-3">
+      <small class="text-muted">
+          <a href="{% url 'home' %}">back to home</a>
+      </small>
+  </div>
+{% endif %}
+{% endblock update_con %}

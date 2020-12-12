@@ -1,0 +1,30 @@
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.pic_item.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <table>
+          <th style="width: 79%;">
+            <a class="mr-2" href="#">{{ object.item_name }}</a>
+            <small class="text-muted">{{ object.post_at|date:"F d, Y" }}</small></th>
+            <th>
+            {% if object.post_by == user %}
+            <div align="right">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'item-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}</th>
+        </table>
+      </div>
+      <table>
+        <th>
+          <h6 class="article-title">{{ object.where }}</h6>
+          <p class="article-content">{{ object.need_at }}</p>
+        </th>
+        <th>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-accept' object.id %}">Accept</a>
+        </th>
+      </table>
+    </div>
+  </article>
+{% endblock content %}
