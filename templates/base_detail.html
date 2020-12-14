@@ -3,26 +3,45 @@
     <img class="rounded-circle article-img" src="{{ object.pic_item.url }}">
     <div class="media-body">
       <div class="article-metadata">
-        <table>
-          <th style="width: 79%;">
+        <div class="modal fade" id="recieve" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        <div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        <div class="modal fade" id="Returned" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        <table style='width: 100%;'>
+          <td style="width: 78%;">
             <a class="mr-2" href="#">{{ object.item_name }}</a>
-            <small class="text-muted">{{ object.post_at|date:"F d, Y" }}</small></th>
-            <th>
-            {% if object.post_by == user %}
-            <div align="right">
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id %}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'item-delete' object.id %}">Delete</a>
-            </div>
-            {% endif %}</th>
+            <small class="text-muted">Post at: {{ object.post_at|date:"F d, Y" }}</small></td>
+          {% if object.post_by == user and object.status == 'Yet' %}
+          <td>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' object.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" data-toggle="modal" href="{% url 'item-delete' item.id %}" data-target="#Returned" title="delete item" data-tooltip>Delete</a>
+          </td>
+          {% elif object.post_by == user and object.status == 'Accepted' %}
+          <td>
+            <a class="btn btn-success btn-sm" data-toggle="modal" href="{% url 'item-recieve' item.id %}" data-target="#recieve" title="recieve item" data-tooltip>Recieve</a>
+            <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip>Cancel</a>
+          </td>
+          {% elif user == object.post_by and object.status == 'Recieved' %}
+          <td>
+            <a class="btn btn-right btn-success btn-disabled btn-sm" data-toggle="modal" href="{% url 'item-recieve' item.id %}" data-target="#recieve" title="recieve item" data-tooltip>Recieved</a>
+          </td>
+          {% elif user == object.accept_by and object.status == 'Accept' %}
+          <td>
+            <a class="btn btn-success btn-disabled btn-sm" data-toggle="modal" href="{% url 'item-recieve' item.id %}" data-target="#recieve" title="recieve item" data-tooltip>Recieved</a>
+          </td>
+          {% endif %}
         </table>
       </div>
       <table>
-        <th>
-          <h6 class="article-title">{{ object.where }}</h6>
-          <p class="article-content">{{ object.need_at }}</p>
+        <th style="width: 99%;">
+          <h6 class="article-title"><small class='text-info'> Locate: {{ object.where }}</small></h6>
+          <p class="article-content"><small class='text-info'>need at: {{ object.need_at }}</small></p>
         </th>
         <th>
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-accept' object.id %}">Accept</a>
+          {% if object.post_by != user and object.status == 'Yet' %}
+            <div align='right'>
+              <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'item-accept' object.id %}">Accept</a>
+            </div>
+          {% endif %}
         </th>
       </table>
     </div>

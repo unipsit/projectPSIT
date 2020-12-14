@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,16 +7,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.min.css' %}">
-    {% if "item_detail" %}
-        <title>HelpMate : {{ object.item_name }}</title>
-    {% else %}
-        <title>HelpMate</title>
-    {% endif %}
+    <title>HelpMate : {{ object.item_name }}</title>
     <style>
       input {width: 50%};
       
@@ -60,21 +56,20 @@
             {% endfor %}
           {% endif %}
           {% block content %}{% endblock %}
-
-          {% if 'item-update' or 'profile-edit' %}
-            {% block update_con %}{% endblock update_con %}
-          {% endif %}
-
+          {% block update_con %}{% endblock update_con %}
+          {% block con_3 %}{% endblock con_3 %}
           </div>
             <div class="col-md-4">
               <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
+                <h3><em class='text-info'>Untitled</em>:</h3>
+                <p class='text-muted'>Web borrowings :  HelpMate
                   <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
+                    <li class="list-group-item list-group-item-light">Borrower-> <u class='text-warning'>Post</u>(status<em class='text-info'>[$Yet]</em>) <small class='text-success'>#input(form  **Edit_able)</small></li>
+                    <li class="list-group-item list-group-item-light">Provider-> <u class='text-warning'>Accept</u>(status<em class='text-info'>[$Accepted]</em>) <small class='text-success'>#input(return_time)</small></li>
+                    <li class="list-group-item list-group-item-light">Borrower-> <small><u class='text-warning'>Wait_till_Recieve</u>($Yes)</small> or <small><u class='text-warning'>Cancel</u>($No)</small></li>
+                    <li class="list-group-item list-group-item-light">$Yes<em class='text-info'>[$Recieved]</em>, $No<em class='text-info'>[$Yet]</em></li>
+                    <li class="list-group-item list-group-item-light">if <em class='text-info'>[$Yet]</em> return_to line1</li>
+                    <li class="list-group-item list-group-item-light">if Provider <u class='text-warning'><small>get_things_back</small></u> <small class='text-danger'>[Delete_Post]</small></li>
                   </ul>
                 </p>
               </div>
@@ -85,13 +80,19 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="{% static 'js/jquery.datetimepicker.full.js' %}"></script>
     <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
     <script src="{% static 'js/jquery.datetimepicker.min.js' %}"></script>
+    <script src="{% static 'js/jquery.datetimepicker.full.js' %}"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock extra_js %}
     <script type="text/javascript">
         $("#id_need_at").datetimepicker({
+            datepicker: true,
+            timepicker: true,
+            format: 'Y-m-d h:m:s'
+        });
+        $("#id_return_at").datetimepicker({
             datepicker: true,
             timepicker: true,
             format: 'Y-m-d h:m:s'

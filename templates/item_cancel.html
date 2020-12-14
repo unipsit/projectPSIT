@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form id="cancel-modal" method='post' class="form" role="form" action="{% url 'item-cancel' item.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+            {% if item.post_by != user %}
+                <legend class='text-muted'>Cancel Confirm</legend><br>
+                <a class="btn btn-outline-secondary" class="close" href="{% url 'profile' %}">×</a>
+            </div>
+            <div class='modal-body'>
+                Are you sure to cancel your help to  "{{ item.post_by }}"  "{{ item.item_name }}"
+            {% else %}
+                <legend class='text-muted'>Are you sure to cancel this offer  "{{ item.item_name }}"</legend>
+                <a class="btn btn-outline-secondary" class="close" href="{% url 'profile' %}">×</a>
+            {% endif %}
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button class="btn btn-outline-danger" type="submit">Cancel this offer</button>
+                    <a class="btn btn-outline-secondary" class="close" href="{% url 'profile' %}">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

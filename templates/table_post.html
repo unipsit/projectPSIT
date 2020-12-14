@@ -1,0 +1,62 @@
+<div class="container-section">
+  <div class="modal fade" id="Returned" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div class="modal fade" id="recieve" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <table>
+        <th style="width: 84%;">Post Board</th>
+        <th>
+            <div align='right'>
+                <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'item-create' %}">Make Request+</a>
+            </div>
+        </th>
+    </table>
+    <table class="table">
+      <thead class="thead bg-steel">
+        <tr class='text-muted'>
+          <th class='font-on-orange' style="width: 10%;">Image</th>
+          <th class='font-on-orange' style='width: 20%;'>Item</th>
+          <th class='font-on-orange' style='width: 25%;'>Need</th>
+          <th class='font-on-orange' style='width: 25%;'>Return</th>
+          <th class='font-on-orange' style='width: 25%;'>Edit</th> 
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td style="width: 300"><img class="rounded-circle article-img" src="{{ item.pic_item.url }}"></td>
+            <td>
+              <a href="{% url 'item-detail' item.id %}" > {{ item.item_name }} </a><br>
+              <small class='text-info'>Locate : {{ item.where }}</small>
+            </td>
+              <td>
+                <small> {{ item.need_at }} <br></small><small class='text-info'> {{ item.post_by }}</small> 
+              </td>
+            {% if user == item.post_by and item.status == 'Accepted' %}
+              <td><small>{{ item.return_at }}</small>
+                <br>
+                <small class="text-success"> to {{ item.accept_by }} </small>
+              </td>
+              <td align="center">
+                <a class="btn btn-success btn-sm" data-toggle="modal" href="{% url 'item-recieve' item.id %}" data-target="#recieve" title="recieve item" data-tooltip><img src='{{ icon.true_rec.url }}' width='18'></a>
+                <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip><img src='{{ icon.cant.url }}' width='18'></a>
+              </td>
+            {% elif user == item.post_by and item.status == 'Recieved' %}
+              <td><small>{{ item.return_at }}</small>
+                <br>
+                <small class="text-success"> to {{ item.accept_by }} </small>
+              </td>
+              <td align="center">
+                <button type="button" class="btn btn-success disabled btn-sm">Recieved</button>
+              </td>
+            {% else %}
+              <td align='center'><small class='text-danger'>  Not yet accepted </small></td>
+              <td align="center">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' item.id %}"><img src='{{ icon.edit.url }}' width='18'></a>
+                <a class="btn btn-danger btn-sm" data-toggle="modal" href="{% url 'item-delete' item.id %}" data-target="#Returned" title="delete item" data-tooltip><img src='{{ icon.trash.url }}' width='18'></a>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>

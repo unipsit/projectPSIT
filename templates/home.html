@@ -1,80 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load static %}<!DOCTYPE html>
+{% load static %}
 {% block content %}
-
-    <div class="container-section">
-      <ol class="breadcrumb my-3">
-        <li class="breadcrumb-item active">Wanted Boards</li>
-      </ol>
-      <div align='right'>
-        <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'item-create' %}">New++</a>
-      </div>
-      <table class="table">
-        <thead class="thead bg-steel">
-          <tr class='text-muted'>
-            <th class='font-on-orange' style="width: 10%;">Image</th>
-            <th class='font-on-orange' style='width: 20%;'>Wanted</th>
-            <th class='font-on-orange' style='width: 25%;'>Need at</th>
-            <th class='font-on-orange' style='width: 25%;'>Post time</th>
-            <th class='font-on-orange' style='width: 25%;'>Status</th> 
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in items %}
-            <tr>
-              <td style="width: 300"><img class="rounded-circle article-img" src="{{ item.pic_item.url }}"> </td>
-              <td>
-                <a href="{% url 'item-detail' item.id %}" > {{ item.item_name }} </a><br>
-                <small class='text-info'>Locate : {{ item.where }}</small>
-              </td>
-              {% if item.accept_by != Null %}
-                <td>
-                  <small class="text-success"> Accepted <br> {{ item.accept_by }}</small>
-                </td>
-                <td><small>{{ item.post_at }}</small>
-                  <br>
-                  <small class="text-info"> by {{ item.post_by }} </small>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-success disabled btn-sm">Accepted</button>
-                </td> 
-              {% else %}
-                <td>
-                  <small> {{ item.need_at }} </small>
-                </td>
-                <td><small>{{ item.post_at }}</small>
-                  <br>
-                  <small class="text-info"> by {{ item.post_by }} </small>
-                </td>
-                <td>
-                  <a class='btn btn-info' href="{% url 'item-accept' item.id %}">Accept</a>
-                </td> 
-              {% endif %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div align='center'>
-      {% if is_paginated %}
-        {% if page_obj.has_previous %}
-          <a class='btn btn-info mb-4' href='?page=1'>first</a>
-          <a class='btn btn-info mb-4' href='?page={{ page_obj.previous_page_number }}'>Previous</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-          {% if page_obj.number == num %}
-            <a class='btn btn-info mb-4' href="?page={{ num }}">{{ num }}</a>
-          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class='btn btn-outline-info mb-4' href="?page={{ num }}">{{ num }}</a>
-
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <a class='btn btn-info mb-4' href='?page={{ page_obj.next_page_number }}'>Next</a>
-          <a class='btn btn-info mb-4' href='?page={{ page_obj.paginator.num_pages }}'>Last</a>
-        {% endif %}
-      {% endif %}
-    </div>
+  <ol class="breadcrumb my-3">
+    <li class="breadcrumb-item active">Wanted Board</li>
+  </ol>
+  {% include 'base_table.html' %}
 {% endblock content %}
+{% block extra_js %}
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock extra_js %}

@@ -1,0 +1,50 @@
+<div class="container-section">
+        <table>
+            <th style="width: 84%;">Accept Board</th>
+            <th>
+                <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'home' %}">Look for more+</a>
+                </div>
+            </th>
+        </table>
+        <table class="table">
+            <thead class="thead bg-steel">
+                <th class='font-on-orange' style="width: 10%;">Image</th>
+                <th class='font-on-orange' style='width: 20%;'>Item</th>
+                <th class='font-on-orange' style='width: 25%;'>Need</th>
+                <th class='font-on-orange' style='width: 25%;'>Status</th>
+                <th class='font-on-orange' style='width: 25%;'>Edit</th> 
+            </thead>
+            <tbody>
+                {% for item in accepts %}
+                <tr>
+                    <td style="width: 300"><img class="rounded-circle article-img" src="{{ item.pic_item.url }}"> </td>
+                    <td>
+                        <a href="{% url 'item-detail' item.id %}" > {{ item.item_name }} </a><br>
+                        <small class='text-info'>Locate : {{ item.where }}</small>
+                    </td>
+                    <td>
+                        <small> {{ item.need_at }}</small><br>
+                        <small class='text-info'>to {{ item.post_by}} </small>
+                    </td>
+                    {% if item.status == 'Accepted' %}
+                    <td align="center">
+                        <small class='text-warning'> {{ item.status }}</small>
+                    </td>
+                    <td align="center">
+                        <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip><img src='{{ icon.cant.url }}' width='18'></a>
+                    </td>
+                    {% else %}
+                    <td align="center">
+                        <small class='text-success'> {{ item.status }}</small>
+                    </td>
+                    <td align="center">
+                        <a class="btn btn-info btn-sm" data-toggle="modal" href="{% url 'item-delete' item.id %}" data-target="#Returned" title="Returned item" data-tooltip>Returned</a>
+                        <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip><img src='{{ icon.cant.url }}' width='18'></a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>

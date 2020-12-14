@@ -1,0 +1,29 @@
+<h3>Closest Return</h3>
+<table>
+{% for item_r in returns_obj %}
+    <tr>
+        <td>
+            {{ item_r.item_name }}
+        </td>
+        <td>
+            {{ item_r.return_at }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>Closest Match</h3>
+<table>
+{% for item_g in gives_obj %}
+    <tr>
+        <td>
+            {{ item_g.item_name }}
+        </td>
+        <td>
+            {{ item_g.need_at }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+

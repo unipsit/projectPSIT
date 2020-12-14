@@ -1,17 +1,14 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        <form id="Returned" method='post' class="form" role="form" action="{% url 'item-delete' item.id %}">
+        <form id="recieve-item" method='post' class="form" role="form" action="{% url 'item-recieve' item.id %}">
             {% csrf_token %}
             <div class="modal-header">
-                <legend class='text-muted'>Delete Confirm</legend>
+                <legend class='text-muted'>You have recieved the item '{{ item.item_name }}'</legend>
                 <a class="btn btn-outline-secondary" class="close" href="{% url 'profile' %}">×</a>
-            </div>
-            <div class='modal-body'>
-                After this decision "{{ item.post_by }}"  "{{ item.item_name }}" will be Remove
             </div>
             <div class="modal-footer">
                 <div class="form-group">
-                    <button class="btn btn-outline-danger" type="submit">Yes</button>
+                    <button class="btn btn-outline-success" type="submit">Yes</button>
                     <a class="btn btn-outline-secondary" class="close" href="{% url 'profile' %}">Cancel</a>
                 </div>
             </div>

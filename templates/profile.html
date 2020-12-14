@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% block extra_js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock extra_js %}
 {% block content %}
   {% include 'base_profile.html' %}
 {% endblock content %}
+{% block update_con %}
+  {% if items|length != 0 %}
+    {% include 'table_post.html' %}
+  {% endif %}
+{% endblock update_con %}
+{% block con_3 %}
+  {% if accepts|length != 0 %}
+    {% include 'table_accept.html' %}
+  {% endif %}
+{% endblock con_3 %}
