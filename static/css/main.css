@@ -8,6 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
+
 ul {
   margin: 0;
 }
@@ -101,4 +102,17 @@ a.article-title:hover {
 
 .logo-font {
     font-family: 'Brush Script MT', cursive;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.top-table {
+  width:  79%;
+  height: 30;
+}
+
+.where-info {
+  font-size: 1;
 }
