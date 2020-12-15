@@ -33,7 +33,7 @@ class ItemDetailView(DetailView):
     model = Item
     template_name = 'item_detail.html'
 
-class ItemCreateView(CreateView):
+class ItemCreateView(LoginRequiredMixin, CreateView):
     model = Item
     template_name = 'item_new_form.html'
     fields = ['item_name', 'where', 'need_at', 'pic_item']
