@@ -29,15 +29,24 @@
                     </td>
                     {% if item.status == 'Accepted' %}
                     <td align="center">
-                        <small class='text-warning'> {{ item.status }}</small>
+                        <small class='text-warning'> {{ item.status }}</small><br>
+                        <small class='text-muted'> {{ item.return_at }}</small>
                     </td>
                     <td align="center">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-accept' item.id %}"><img src='{{ icon.edit.url }}' width='18'></a>
                         <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip><img src='{{ icon.cant.url }}' width='18'></a>
                     </td>
                     {% else %}
+                        {% if item.return_at in not_retuern %}
                     <td align="center">
-                        <small class='text-success'> {{ item.status }}</small>
+                        <small class='text-danger'> Not return in time</small>
                     </td>
+                        {% else %}
+                    <td align="center">
+                        <small class='text-warning'> {{ item.status }}</small><br>
+                        <small class='text-success'> {{ item.return_at }}</small>
+                    </td>
+                        {% endif %}
                     <td align="center">
                         <a class="btn btn-info btn-sm" data-toggle="modal" href="{% url 'item-delete' item.id %}" data-target="#Returned" title="Returned item" data-tooltip>Returned</a>
                         <a class='btn btn-danger btn-sm' data-toggle="modal" href="{% url 'item-cancel' item.id %}" data-target="#cancel-modal" title="cancel item" data-tooltip><img src='{{ icon.cant.url }}' width='18'></a>
