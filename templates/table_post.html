@@ -49,7 +49,11 @@
                 <button type="button" class="btn btn-success disabled btn-sm">Recieved</button>
               </td>
             {% else %}
+              {% if item in time %}
+              <td align='center'><small class='text-danger'>  time out </small></td>
+              {% else %}
               <td align='center'><small class='text-danger'>  Not yet accepted </small></td>
+              {% endif %}
               <td align="center">
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'item-update' item.id %}"><img src='{{ icon.edit.url }}' width='18'></a>
                 <a class="btn btn-danger btn-sm" data-toggle="modal" href="{% url 'item-delete' item.id %}" data-target="#Returned" title="delete item" data-tooltip><img src='{{ icon.trash.url }}' width='18'></a>
