@@ -23,12 +23,14 @@ def register(request):
 def show_profile(request):
     items_post = Item.objects.filter(post_by = request.user.id).order_by('-accept_by')
     items_accept = Item.objects.filter(accept_by = request.user.id).order_by('need_at')
-    items_expire = list(Item.objects.filter(need_at__lt = timezone.now()).order_by('-accept_by'))
+    items_expire = list(Item.objects.filter(need_at__lt = timezone.now()))
+    not_return = list(Item.objects.filter(return_at__lt = timezone.now()))
     context = {
             'items' : items_post,
             'accepts' : items_accept,
             'icon' : Icon,
-            'time' : items_expire
+            'time' : items_expire,
+            'not_return' : not_return
     }
     return render(request, 'profile.html', context)
 
